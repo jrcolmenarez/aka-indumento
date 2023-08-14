@@ -104,7 +104,53 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $json=$request->input('json', null);
+        $params_array=json_decode($json, true);
+        $data = array(
+                'code'  => 400,
+                'status'=> 'Error',
+                'message'=> 'No se han enviado datos para actualizar'
+        );
+        if(!empty($params_array)){
+            $validate = Validator::make($params_array,[
+                'name'     => 'required',
+                'description'   => 'required',
+                'price'         => 'required',
+                'stock'         => 'required',
+                'subcategory_id'=> 'required'
+            ]);
+                if($validate->fails()){
+                    $data['errors'] = $validate->errors();
+                    return response()->json($data, $data['code']);
+                }
+            unset($params_array['id']);
+            unset($params_array['created_at']);
+
+            $user = $this->getIdentity($request);
+            if ($user->role == 'ROLE_ADMIN'){
+                $produc = Product::find($id);
+
+                if(!empty($produc) && is_object($produc)){
+                    $produc->update($params_array);
+                    $data = array (
+                        'code'      => 200,
+                        'status'    => 'success',
+                        'Post'      => $produc,
+                        'changes'   => $params_array
+                        );}
+            }else{
+                $data = array(
+                    'code'  => 400,
+                    'status'=> 'Error',
+                    'message'=> 'NO ES EL ADMIN'
+            );}
+        }else{
+            $data = array(
+                'code'  => 400,
+                'status'=> 'Error',
+                'message'=> 'JSON esta VACIO'
+        );}
+        return response()->json($data, $data['code']);
     }
 
     public function destroy($id)
