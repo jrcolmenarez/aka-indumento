@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Product;
-use Order;
 
 class Order_Detail extends Model
 {
@@ -24,8 +22,13 @@ class Order_Detail extends Model
     public function products(){
         return $this->hasMany(Product::class);
     }
-    public function user(){
+
+    public function order(){
         return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function user(){
+
     }
 
 }

@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ApiAuthMiddleware;
+use App\Models\Order_Detail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,24 @@ route::get('/api/user/detail/{id}',[UserController::class, 'detail']);
 route::get('/api/user/all', [UserController::class, 'storeUser']);
 route::delete('/api/user/{id}', [UserController::class, 'destroy'])->middleware(ApiAutMiddleware::class);
 
+//category rutas
 route::resource('/api/category', CategoryController::class);
+//subcategory
+route::resource('/api/subcategory', SubcategoryController::class);
 
+//Product Rutas
 route::resource('/api/product', ProductController::class);
+route::post('/api/product/upload', [ProductController::class, 'upload']);
+route::get('/api/product/image/{filename}', [ProductController::class, 'getImage']);
+
+//Orders Rutas
+route::resource('/api/order', OrderController::class);
+
+//ordersDetail Rutas
+route::resource('/api/orderdetail', Order_Detail::class);
+
+//shopping_cart rutas
+route::resource('/api/shoppingcart', ShoppingCartController::class);
+route::post('/api/shoppingcart/emptycart', [ShoppingCartController::class, 'empty']);
+
+

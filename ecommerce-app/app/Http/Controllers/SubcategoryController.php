@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Subcategory;
 use app\Helpers\JwtAuth;
 
+
 class SubcategoryController extends Controller
 {
 
     public function __construct() {
 
-        $this->middleware('api.auth', ['except' => ['index']]);
+        $this->middleware('api.auth', ['except' => ['index','show']]);
 
     }
 
@@ -22,11 +23,7 @@ class SubcategoryController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
@@ -74,45 +71,99 @@ class SubcategoryController extends Controller
     }
 
 
-    public function show($id, Request $request)
+    public function show($id)
     {
-        $json = $request->input('json', null);
-        $params_array = json_decode($json, true);
-        $user = $this->getIdentity($request);
+        $subcategory = Subcategory::find($id);
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'product' => $subcategory
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
+        $json=$request->input('json', null);
+        $params_array=json_decode($json, true);
+        $data = array(
+                'code'  => 400,
+                'status'=> 'Error',
+                'message'=> 'No se han enviado datos para actualizar'
+        );
+        if(!empty($params_array)){
+            $validate = Validator::make($params_array,[
+                'name'     => 'required',
+                'description'   => 'required',
+                'category_id'   => 'required'
+            ]);
+                if($validate->fails()){
+                    $data['errors'] = $validate->errors();
+                    return response()->json($data, $data['code']);
+                }
+            unset($params_array['id']);
+            unset($params_array['created_at']);
+
+            $user = $this->getIdentity($request);
+            if ($user->role == 'ROLE_ADMIN'){
+                $subcat = Subcategory::find($id);
+
+                if(!empty($subcat) && is_object($subcat)){
+                    $subcat->update($params_array);
+                    $data = array (
+                        'code'      => 200,
+                        'status'    => 'success',
+                        'Post'      => $subcat,
+                        'changes'   => $params_array
+                        );}
+            }else{
+                $data = array(
+                    'code'  => 400,
+                    'status'=> 'Error',
+                    'message'=> 'NO ES EL ADMIN'
+            );}
+        }else{
+            $data = array(
+                'code'  => 400,
+                'status'=> 'Error',
+                'message'=> 'JSON esta VACIO'
+        );}
+        return response()->json($data, $data['code']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy($id, Request $request)
     {
-        //
+        $subcat = new Subcategory();
+        $user = $this->getIdentity($request);
+        $subcat = Subcategory::find($id);
+        if(!empty($subcat)){
+            if ($user->role == 'ROLE_ADMIN'){
+                $subcat->delete();
+                $data = array(
+                'code'    =>  200,
+                'status'  => 'success',
+                'post'    => $subcat
+                );
+            }else{
+                $data = array(
+                    'code'    =>  404,
+                    'status'  => 'error',
+                    'mesage'    => 'No tiene acceso de administrador'
+                  );}
+        }else{
+            $data = array(
+               'code'    =>  404,
+               'status'  => 'error',
+               'mesage'    => 'categoria no existe'
+             );}
+        return response()->json($data, $data['code']);
     }
 
     private function getIdentity(Request $request){
