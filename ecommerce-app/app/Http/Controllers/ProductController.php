@@ -98,6 +98,17 @@ class ProductController extends Controller
         ]);
     }
 
+
+    public function poductCategory($id)
+    {
+        $product = Product::where('subcategory_id',$id)->get();
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'product' => $product
+        ]);
+    }
+
     public function edit($id)
     {
         //
@@ -182,6 +193,8 @@ class ProductController extends Controller
              );}
         return response()->json($data, $data['code']);
     }
+
+
 
     public function upload(Request $request){
         //recoger datos de la peticion

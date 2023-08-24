@@ -21,8 +21,8 @@ class UserController extends Controller
         //validamos vacio
         if(!empty($params_array)){
             $validate = validator::make($params_array, [
-               'name'           => 'required|alpha',
-               'surname'        => 'required|alpha',
+               'name'           => 'required',
+               'surname'        => 'required',
                'email'          => 'required|email|unique:users',
                'password'       => 'required'
             ]);
@@ -42,6 +42,7 @@ class UserController extends Controller
                         $user->password = $pwd;
                         $user->address = $params_array['address'];
                         $user->phone = $params_array['phone'];
+                        $user->gender = $params_array['gender'];
                         $user->role_user = $params_array['role_user'];
                         //guardar el usuario
                         $user->save();
@@ -155,16 +156,17 @@ class UserController extends Controller
 
         //validar si llega una imagen
         $validate = validator::make($request->all(),[
-            'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+            'file0' => 'required|image|mimes:jpeg,png,gif,jpg,bmp,cgm,gif,jpe,svg,psd,pic,webp|min:10|max:3000'
         ]);
 
         //gurdamos la imagen
         if(!$image || $validate->fails()){
 
             $data = array (
-                'code' => 200,
+                'code' => 400,
                 'status' => 'error',
-                'message' => 'Error al cargar imagen'
+                'message' => 'Error al cargar imagen',
+                'error'    => $validate->errors()
              );
 
 
@@ -202,7 +204,7 @@ class UserController extends Controller
 
         public function detail($id) {
             //buscar forma de que si da null encontrar ese error tarea
-            $user = User::find($id)->load('product');
+            $user = User::find($id);
             if(is_object($user)){
                 $data = array (
                     'code' => 200,

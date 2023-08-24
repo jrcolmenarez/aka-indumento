@@ -1,0 +1,33 @@
+<div class="container-fluid ">
+  <form action="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <div class="row d-block">
+      <div class="alert alert-danger col-md-4 mx-auto" role="alert" *ngIf="status == 'error'">
+        No se ha podido Iniciar sesion, Por favor verifique sus datos..!!!
+        </div>
+      <div class="col-md-4 mx-auto">
+        <h1 class="">Inicia Sesion</h1>
+      </div>
+      <div class="col-md-4 mx-auto">
+        <div class="mb-2">
+          <label for="email" class="form-label"><strong>EMAIL</strong></label>
+          <input type="email" class="form-control" name="email" placeholder="name@example.com" #email="ngModel"
+            [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+          <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+            Debe ingresar Formato Valido para correo..!
+          </small>
+        </div>
+        <div class="mb-2">
+          <label for="password" class="form-label"><strong>PASSWORD</strong></label>
+          <input type="password" name="password" class="form-control" aria-describedby="passwordHelpBlock"
+            name="password" #password="ngModel" [(ngModel)]="user.password">
+        </div>
+      </div>
+      <div class="row col-md-4 mx-auto">
+        <div class="d-flex mt-5 justify-content-center">
+          <button type="submit" class="btn btn-dark me-3 ms-3" [disabled]="loginForm.invalid">Iniciar</button>
+          <button type="button" class="btn btn-dark ms-3">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="cabecera">
+      <div class="row d-flex justify-content-end">
+        <div class="col-md-4 text-end me-5 pe-4 mt-4">
+          <a href="">TIENDAS</a>
+          <a [routerLink]="['registro']" *ngIf="!identity">REGISTRATE</a>
+          <a [routerLink]="['/login']" *ngIf="!identity"><i class="bi bi-person fs-5"></i></a>
+        </div>
+      </div>
+
+      <div class="dropdown row sticky-top">
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <div class="nav_logo col-md-2 col-2 order-lg-0">
+              <a href=""><img src="assets/logo.png" alt=""></a>
+            </div>
+            <div
+              class="shopping row order-lg-3 p-0 m-0 col-sm-4 col-5 col-md-3 col-lg-4 col-xl-4 col-xxl-3 justify-content-end">
+
+              <div class="col-sm-4 col-2 align-items-center d-flex justify-content-end p-0 m-0">
+                <span *ngIf="identity">
+                  <div class="avatar_mask" *ngIf="identity.image">
+                    <img src="{{url+'user/avatar/'+identity.image}}" class="avatar_menu" />
+
+                  </div>
+                  <div class="avatar_mask" *ngIf="!identity.image">
+                    <img src="assets/user-holder.png" class="avatar_menu" />
+                  </div>
+                </span>
+              </div>
+
+              <div class="col-sm-4 col-4 align-items-center d-flex justify-content-start p-0 m-0 users">
+                <div class="dropdown" *ngIf="identity">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{identity.name}}
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" [routerLink]="['/userperf',identity.sub]">Mi Perfil</a></li>
+                    <li><a class="dropdown-item" href="#">Sin Uso</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li class="nav-item ms-2" *ngIf="identity">
+                      <a class="dropdown-item" [routerLink]="['/logout/1']">Cerrar Sesion</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-sm-4 col-4 d-flex">
+                <button type="button" class="btn position-relative p-0 m-0">
+                  <i class="bi bi-cart3 p-0 m-0"></i>
+                  <span class="position-absolute top-10 start-90 translate-middle badge rounded-pill bg-danger">
+                    5
+                    <span class="visually-hidden">mensajes no leídos</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <button class="navbar-toggler order-lg-2" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class=""><i class="fa-solid fa-bars"></i></span>
+            </button>
+            <div class="collapse navbar-collapse col-md-4 justify-content-center col-xl-4 col-xxl-4"
+              id="navbarSupportedContent">
+              <div class="clear-fix">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                      aria-expanded="false">Damas
+                    </a>
+                    <ul class="dropdown-menu p-0 m-0 w-100" aria-labelledby="dropdownMenuButton1">
+                      <div class="exampleModal">
+                        <div class="contenido">
+                          <div class="row justify-content-center align-items-center">
+                            <div class="col-md-4 col-sm-4 col-4 submenu text-center">
+                              <ul class="text-justify">
+                                <li>Ropa</li>
+                                <li>Calzado</li>
+                                <li>Sueters</li>
+                              </ul>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-4 text-center">
+                              <img src="assets/modelomen.png" alt="">
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                      aria-expanded="false">Caballeros
+                    </a>
+                    <ul class="dropdown-menu p-0 m-0 w-100" aria-labelledby="dropdownMenuButton2">
+                      <div class="exampleModal">
+                        <div class="contenido">
+                          <div class="row justify-content-center align-items-center">
+                            <div class="col-md-4 col-sm-4 col-4 submenu text-center">
+                              <ul class="text-justify">
+                                <li>Ropa</li>
+                                <li>Calzado</li>
+                                <li>Sueters</li>
+                              </ul>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-4 text-center">
+                              <img src="assets/modelomen.png" alt="">
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown"
+                      aria-expanded="false">Niños
+                    </a>
+                    <ul class="dropdown-menu p-0 m-0" aria-labelledby="dropdownMenuButton3">
+                      <div class="exampleModal">
+                        <div class="contenido">
+                          <div class="row justify-content-center align-items-center">
+                            <div class="col-md-4 col-sm-4 col-4 submenu text-center">
+                              <ul class="text-justify">
+                                <li>Ropa</li>
+                                <li>Calzado</li>
+                                <li>Sueters</li>
+                              </ul>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-4 text-center">
+                              <img src="assets/modelomen.png" alt="">
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </div>
+    <br>
+
+
+  </div>
+  <br>
+  <router-outlet></router-outlet>
+
+
+</body>
+
+</html>
