@@ -19,35 +19,38 @@ use App\Models\Order_Detail;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => ['cors']], function () {
+    Route::get('/prueba', [PruebaController::class, 'testOrm']);
+    Route::post('/api/user/register',[UserController::class, 'register']);
+    Route::post('/api/user/login',[UserController::class, 'login']);
+    Route::put('/api/user/update',[UserController::class, 'update']);
+    Route::post('/api/user/upload',[UserController::class, 'upload'])->middleware(ApiAuthMiddleware::class);
+    Route::get('/api/user/avatar/{filename}',[UserController::class, 'getImage']);
+    route::get('/api/user/detail/{id}',[UserController::class, 'detail']);
+    route::get('/api/user/all', [UserController::class, 'storeUser']);
+    route::delete('/api/user/{id}', [UserController::class, 'destroy'])->middleware(ApiAutMiddleware::class);
 
-Route::get('/prueba', [PruebaController::class, 'testOrm']);
-Route::post('/api/user/register',[UserController::class, 'register']);
-Route::post('/api/user/login',[UserController::class, 'login']);
-Route::put('/api/user/update',[UserController::class, 'update']);
-Route::post('/api/user/upload',[UserController::class, 'upload'])->middleware(ApiAuthMiddleware::class);
-Route::get('/api/user/avatar/{filename}',[UserController::class, 'getImage']);
-route::get('/api/user/detail/{id}',[UserController::class, 'detail']);
-route::get('/api/user/all', [UserController::class, 'storeUser']);
-route::delete('/api/user/{id}', [UserController::class, 'destroy'])->middleware(ApiAutMiddleware::class);
+    //category rutas
+    route::resource('/api/category', CategoryController::class);
+    //subcategory
+    route::resource('/api/subcategory', SubcategoryController::class);
 
-//category rutas
-route::resource('/api/category', CategoryController::class);
-//subcategory
-route::resource('/api/subcategory', SubcategoryController::class);
+    //Product Rutas
+    route::resource('/api/product', ProductController::class);
+    route::post('/api/product/upload', [ProductController::class, 'upload']);
+    route::get('/api/product/image/{filename}', [ProductController::class, 'getImage']);
 
-//Product Rutas
-route::resource('/api/product', ProductController::class);
-route::post('/api/product/upload', [ProductController::class, 'upload']);
-route::get('/api/product/image/{filename}', [ProductController::class, 'getImage']);
+    //Orders Rutas
+    route::resource('/api/order', OrderController::class);
 
-//Orders Rutas
-route::resource('/api/order', OrderController::class);
+    //ordersDetail Rutas
+    route::resource('/api/orderdetail', Order_Detail::class);
 
-//ordersDetail Rutas
-route::resource('/api/orderdetail', Order_Detail::class);
+    //shopping_cart rutas
+    route::resource('/api/shoppingcart', ShoppingCartController::class);
+    route::post('/api/shoppingcart/emptycart', [ShoppingCartController::class, 'empty']);
+});
 
-//shopping_cart rutas
-route::resource('/api/shoppingcart', ShoppingCartController::class);
-route::post('/api/shoppingcart/emptycart', [ShoppingCartController::class, 'empty']);
+
 
 

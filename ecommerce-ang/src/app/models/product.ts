@@ -6,7 +6,7 @@ export class Product{
     public price: number,
     public stock: number,
     public subcategory_id: string,
-    public image: string,
+    public image1: string,
     public image2: string,
     public image3: string,
     public user_id: string,

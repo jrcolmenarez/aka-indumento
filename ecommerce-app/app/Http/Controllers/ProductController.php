@@ -64,6 +64,9 @@ class ProductController extends Controller
                     $produc->price = $params_array['price'];
                     $produc->stock = $params_array['stock'];
                     $produc->subcategory_id = $params_array['subcategory_id'];
+                    $produc->image1=$params_array['image1'];
+                    $produc->image2=$params_array['image2'];
+                    $produc->image3=$params_array['image3'];
                     $produc->user_id = $user->sub;
                     $produc->save();
                     $data = [
@@ -201,7 +204,7 @@ class ProductController extends Controller
         $image = $request->file('file0');
         //validar si llega una imagen
         $validate = validator::make($request->all(),[
-            'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+            'file0' => 'required|image|mimes:jpeg,png,gif,jpg,bmp,cgm,gif,jpe,svg,psd,pic,webp|min:10|max:3000'
         ]);
         //gurdamos la imagen
         if(!$image || $validate->fails()){

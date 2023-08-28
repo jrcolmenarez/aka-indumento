@@ -5,6 +5,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { QuillModule } from 'ngx-quill';
 
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import {FileUploadComponent} from './components/file-upload/file-upload.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductsRegisterComponent } from './components/products-register/products-register.component';
 
 
 @NgModule({
@@ -26,10 +28,12 @@ import { ProductListComponent } from './components/product-list/product-list.com
     ErrorComponent,
     UserEditComponent,
     FileUploadComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductsRegisterComponent
   ],
   imports: [
     BrowserModule,
+    QuillModule,
     routing,
     FormsModule,
     HttpClientModule,

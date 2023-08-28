@@ -1,3 +1,5 @@
+@import url('~quill/dist/quill.core.css');
+@import url('~quill/dist/quill.snow.css');
 @font-face {
   font-family: 'Roboto';
   src: url('Fonts/Roboto-Light.ttf');
@@ -39,6 +41,9 @@
 .nav_logo img{
   height: 85px;
   margin-left: 25px;
+}
+.cabecera .dropdown{
+  position: sticky;
 }
 .dropdown-menu{
   width: 100% !important;
@@ -170,4 +175,24 @@ select{
 }
 form{
   min-height: 350px;
+}
+.card .imgcard{
+  height: 350px !important;
+  border-radius: 0%;
+}
+.colection .card{
+  border-radius: 0% !important;
+  border: none !important;
+}
+.card-img{
+  border-radius: 0% !important;
+  height: 300px;
+  width: 250px;
+}
+.img-product{
+  height: 100px;
+  border-radius: 0%;
+}
+.ql-editor{
+  height: 350px;
 }

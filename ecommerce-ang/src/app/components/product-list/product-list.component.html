@@ -1,19 +1,59 @@
+<br>
+<h1 class="text-center"> PRODUCTOS DESTACADOS</h1>
+<br>
 <div class="row">
   <div class="col-md-3">
     <div class="card">
-      <img src="..." class="card-img-top" alt="...">
+      <img src="assets/aka-chica.png" class="card-img-top imgcard" alt="...">
 
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
           content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <button type="button" class="btn btn-dark ms-3" [routerLink]="['/inicio']">Ver Mas</button>
       </div>
     </div>
   </div>
   <div class="col-md-3">
+    <div class="card">
+      <img src="assets/aka-conjunto.png" class="card-img-top imgcard" alt="...">
+
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <button type="button" class="btn btn-dark ms-3" [routerLink]="['/inicio']">Ver Mas</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <img src="assets/aka-falda.png" class="card-img-top imgcard" alt="...">
+
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <button type="button" class="btn btn-dark ms-3" [routerLink]="['/inicio']">Ver Mas</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <img src="assets/aka-franela.png" class="card-img-top imgcard" alt="...">
+
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <button type="button" class="btn btn-dark ms-3" [routerLink]="['/inicio']">Ver Mas</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 d-none">
     <div class="card" aria-hidden="true">
-      <img src="..." class="card-img-top" alt="...">
+      <img src="assets/product-holder.jpg" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title placeholder-glow">
           <span class="placeholder col-6"></span>
@@ -29,4 +69,44 @@
       </div>
     </div>
   </div>
+</div>
+<!--TERMINAN LAS CARDS COMENZAMOS CON LAS IMAGENES PARA LA COLECCCION SOLO MAQUETACION-->
+<br>
+<h1 class="text-center">COLECCION</h1>
+<div class="row colection">
+  <div class="col-md-6 p-0 m-0">
+    <div class="card  p-2 m-0">
+      <img src="assets/aka-indumento.jpg" class="card-img" alt="...">
+      <div class="card-img-overlay">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 p-0 m-0">
+    <div class="card p-2 m-0">
+      <img src="assets/aka-indumento-girl.jpg" class="card-img" alt="...">
+      <div class="card-img-overlay">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 p-0 m-0">
+    <div class="card p-2 m-0 position-relative">
+      <img src="assets/aka-indumento-boy.jpg" class="card-img " alt="...">
+      <div class="card-img-overlay position-absolute start-50 top-50">
+        <button type="button" class="btn btn-dark" [routerLink]="['/inicio']">Ver Mas</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 p-0 m-0">
+    <div class="card p-2 m-0">
+      <img src="assets/paralelas aka.png" class="card-img" alt="...">
+      <div class="card-img-overlay">
+
+      </div>
+    </div>
+  </div>
+
+
+
 </div>

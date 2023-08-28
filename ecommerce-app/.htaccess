@@ -1,0 +1,4 @@
+# CORS
+Header set Access-Control-Allow-Origin: *
+# Permitimos requests ajax
+Header set Access-Control-Allow-Headers: X-Requested-With
