@@ -19,14 +19,14 @@ use App\Models\Order_Detail;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['middleware' => ['cors']], function () {
+
     Route::get('/prueba', [PruebaController::class, 'testOrm']);
     Route::post('/api/user/register',[UserController::class, 'register']);
     Route::post('/api/user/login',[UserController::class, 'login']);
     Route::put('/api/user/update',[UserController::class, 'update']);
     Route::post('/api/user/upload',[UserController::class, 'upload'])->middleware(ApiAuthMiddleware::class);
     Route::get('/api/user/avatar/{filename}',[UserController::class, 'getImage']);
-    route::get('/api/user/detail/{id}',[UserController::class, 'detail']);
+    route::get('/api/user/detail/{id}',[UserController::class, 'detail'])->middleware(ApiAuthMiddleware::class);
     route::get('/api/user/all', [UserController::class, 'storeUser']);
     route::delete('/api/user/{id}', [UserController::class, 'destroy'])->middleware(ApiAutMiddleware::class);
 
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['cors']], function () {
     //shopping_cart rutas
     route::resource('/api/shoppingcart', ShoppingCartController::class);
     route::post('/api/shoppingcart/emptycart', [ShoppingCartController::class, 'empty']);
-});
+
 
 
 

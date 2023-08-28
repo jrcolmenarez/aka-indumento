@@ -84,7 +84,7 @@ export class UserEditComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this._userService.upload(this.currentFile, this.token).subscribe({
+        /*this._userService.upload(this.currentFile, this.token).subscribe({
           next: (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round((100 * event.loaded) / event.total);
@@ -105,7 +105,7 @@ export class UserEditComponent implements OnInit {
 
             this.currentFile = undefined;
           },
-        });
+        });*/
       }
 
       this.selectedFiles = undefined;

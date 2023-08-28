@@ -39,7 +39,7 @@ export class FileUploadComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this._userservice.upload(this.currentFile).subscribe({
+        this.uploadService.upload(this.currentFile).subscribe({
           next: (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round((100 * event.loaded) / event.total);
