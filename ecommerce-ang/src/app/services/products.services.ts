@@ -17,11 +17,14 @@ export class ProductService{
   }
 
   registerProduct(prod: Product, token: any): Observable<any>{
+    //limpiamos el campo
+    prod.description =  global.htmlEntities(prod.description);
     let json = JSON.stringify(prod);
     let params = 'json='+json;
+    console.log(params);
     let headers = new HttpHeaders().set('content-type','application/x-www-form-urlencoded')
                     .set('Authorization', token);
-    return this._http.post(this.url+'product/',params, {headers:headers});
+    return this._http.post(this.url+'product',params, {headers:headers});
   }
 
   upload(file: File, token: any = null): Observable<HttpEvent<any>> {
@@ -34,5 +37,19 @@ export class ProductService{
     const authReq = req.clone({ setHeaders: { Authorization: token } });
     return this._http.request(authReq);
   }
+
+  updateProd(product: Product, token: any, id: any): Observable<any>{
+    product.description =  global.htmlEntities(product.description);
+    let json = JSON.stringify(product);
+    let params = 'json='+json;
+    let headers = new HttpHeaders().set('content-type','application/x-www-form-urlencoded')
+                    .set('Authorization', token);
+    return this._http.put(this.url+'product/'+id,params, {headers:headers});
+  }
+
+  getProduct(id: any): Observable<any>{
+		let headers = new HttpHeaders().set('content-type','application/json');
+		return this._http.get(this.url+'product/'+id,{headers:headers});
+	}
 
 }

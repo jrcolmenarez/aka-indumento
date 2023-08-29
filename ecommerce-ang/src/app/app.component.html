@@ -18,6 +18,8 @@
     <div class="cabecera sticky-top">
       <div class="row d-flex justify-content-end">
         <div class="col-md-4 text-end me-5 pe-4 mt-4">
+          <a [routerLink]="['registroprod']" *ngIf="identity && identity.role=='ROLE_ADMIN'">PRODUCTOS</a>
+          <a [routerLink]="['/editproduct/19']" *ngIf="identity && identity.role=='ROLE_ADMIN'">CATEGORIAS</a>
           <a href="">TIENDAS</a>
           <a [routerLink]="['registro']" *ngIf="!identity">REGISTRATE</a>
           <a [routerLink]="['/login']" *ngIf="!identity"><i class="bi bi-person fs-5"></i></a>
@@ -53,7 +55,7 @@
                     {{identity.name}}
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" [routerLink]="['/userperf',identity.sub]">Mi Perfil</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['/userpedit',identity.sub]">Mi Perfil</a></li>
                     <li><a class="dropdown-item" href="#">Sin Uso</a></li>
                     <li>
                       <hr class="dropdown-divider">

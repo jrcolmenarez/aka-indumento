@@ -7,16 +7,18 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import {UserEditComponent} from './components/user-edit/user-edit.component';
 import { ErrorComponent } from './components/error/error.component';
-import {ProductsRegisterComponent} from './components/products-register/products-register.component'
+import {ProductsRegisterComponent} from './components/products-register/products-register.component';
+import {ProductEditComponent} from './components/product-edit/product-edit.component'
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path:'inicio', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'registro', component: RegisterComponent },
-  {path: 'userperf/:id', component: UserEditComponent},
+  {path: 'userpedit/:id', component: UserEditComponent},
   {path:'logout/:sure', component: LoginComponent},
   {path: 'registroprod', component: ProductsRegisterComponent},
+  {path: 'editproduct/:id', component: ProductEditComponent},
   {path: '**', component: ErrorComponent}
 ];
 

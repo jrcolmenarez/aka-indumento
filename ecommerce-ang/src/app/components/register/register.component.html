@@ -53,19 +53,20 @@
               <input type="file" (change)="selectFile($event)" />
             </label>
           </div>
-        </div>
-        <div *ngIf="currentFile" class="progress my-3">
-          <div
-            class="progress-bar progress-bar-info"
-            role="progressbar"
-            attr.aria-valuenow="{{ progress }}"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            [ngStyle]="{ width: progress + '%' }"
-          >
-            {{ progress }}%
+          <div *ngIf="currentFile" class="progress my-3">
+            <div
+              class="progress-bar progress-bar-info"
+              role="progressbar"
+              attr.aria-valuenow="{{ progress }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [ngStyle]="{ width: progress + '%' }"
+            >
+              {{ progress }}%
+            </div>
           </div>
         </div>
+
       </div>
       <div class="row justify-content-center">
         <div class="col-md-4">

@@ -17,6 +17,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import {FileUploadComponent} from './components/file-upload/file-upload.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductsRegisterComponent } from './components/products-register/products-register.component';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProductsRegisterComponent } from './components/products-register/produc
     UserEditComponent,
     FileUploadComponent,
     ProductListComponent,
-    ProductsRegisterComponent
+    ProductsRegisterComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

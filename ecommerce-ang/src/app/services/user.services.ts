@@ -52,7 +52,7 @@ export class UserService{
 		return this._http.get(this.url+'user/detail/'+id,{headers:headers});
 	}
 
-  /*
+
   upload(file: File, token: any = null): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file0', file);
@@ -62,7 +62,7 @@ export class UserService{
     });
     const authReq = req.clone({ setHeaders: { Authorization: token } });
     return this._http.request(authReq);
-  }*/
+  }
 
   getIdentity(){
 

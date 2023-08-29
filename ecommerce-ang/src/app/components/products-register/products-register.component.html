@@ -45,23 +45,23 @@
           <select class="form-select" aria-label="Default select example" name="subcategory_id"
             #subcategory_id="ngModel" [(ngModel)]="product.subcategory_id">
             <option selected>Seleccion</option>
-            <option value="2">franelas</option>
-            <option value="2">Correas</option>
+            <option value="3">franelas</option>
+            <option value="4">Correas</option>
           </select>
         </div>
       </div>
       <div class="col-md-4">
         <div class="row align-items-center">
-          <div class="col-md-3 mb-2 ps-3">
+          <div class="col-xl-12 col-xxl-3 mb-2 ps-3">
             <label for="name" class="form-label"><strong>IMAGEN</strong></label><br>
             <img src="{{url+'product/image/'+product.image1}}" class="img-product" *ngIf="is_edit && product.image1" />
-            <img src="assets/user-holder.png" class="img-product" *ngIf="!product.image1" />
+            <img src="assets/product-holder.jpg" class="img-product" *ngIf="!product.image1" />
           </div>
-          <div class="col-md-8">
+          <div class="col-xl-12 col-xxl-8">
             <div class="row">
               <div class="col-12">
                 <label class="btn btn-default p-0">
-                  <input type="file" (change)="selectFile($event)" />
+                  <input type="file" name="image1" id="image1" (change)="selectFile($event)" />
                 </label>
 
                 <div *ngIf="currentFile" class="progress my-3">
@@ -75,16 +75,16 @@
           </div>
         </div>
         <div class="row align-items-center">
-          <div class="col-md-3 mb-2 ps-3">
+          <div class="col-xl-12 col-xxl-3 mb-2 ps-3">
             <label for="name" class="form-label"><strong>IMAGEN 2</strong></label><br>
             <img src="{{url+'product/image/'+product.image2}}" class="img-product" *ngIf="is_edit && product.image2" />
-            <img src="assets/user-holder.png" class="img-product" *ngIf="!product.image2" />
+            <img src="assets/product-holder.jpg" class="img-product" *ngIf="!product.image2" />
           </div>
-          <div class="col-md-8">
+          <div class="col-xl-12 col-xxl-8">
             <div class="row">
               <div class="col-12">
                 <label class="btn btn-default p-0">
-                  <input type="file" (change)="selectFile($event)" />
+                  <input type="file" id="image2"  (change)="selectFile($event)" />
                 </label>
 
                 <div *ngIf="currentFile" class="progress my-3">
@@ -98,16 +98,16 @@
           </div>
         </div>
         <div class="row align-items-center">
-          <div class="col-md-3 mb-2 ps-3">
+          <div class="col-xl-12 col-xxl-3 mb-2 ps-3">
             <label for="name" class="form-label"><strong>IMAGEN 3</strong></label><br>
             <img src="{{url+'product/image/'+product.image3}}" class="img-product" *ngIf="is_edit && product.image3" />
-            <img src="assets/user-holder.png" class="img-product" *ngIf="!product.image3" />
+            <img src="assets/product-holder.jpg" class="img-product" *ngIf="!product.image3" />
           </div>
-          <div class="col-md-8 ">
+          <div class="col-xl-12 col-xxl-8 ">
             <div class="row">
               <div class="col-12">
                 <label class="btn btn-default p-0">
-                  <input type="file" (change)="selectFile($event)" />
+                  <input type="file" id="image3"  (change)="selectFile($event)" />
                 </label>
 
                 <div *ngIf="currentFile" class="progress my-3">
@@ -131,7 +131,8 @@
       <br>
       <div class="row col-md-8">
         <div class="d-flex mt-5 justify-content-center">
-          <button type="submit" class="btn btn-dark me-3 ms-3" [disabled]="registerprod.invalid">Registrar</button>
+          <button type="submit" class="btn btn-dark me-3 ms-3" *ngIf="!is_edit" [disabled]="registerprod.invalid">Registrar</button>
+          <button type="submit" class="btn btn-dark me-3 ms-3" *ngIf="is_edit" [disabled]="registerprod.invalid">Actualizar</button>
           <button type="button" class="btn btn-dark ms-3" [routerLink]="['/inicio']">Cancelar</button>
         </div>
 

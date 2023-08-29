@@ -93,7 +93,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::find($id)->load('user');
+        $product = Product::find($id);
         return response()->json([
             'code' => 200,
             'status' => 'success',
@@ -141,17 +141,19 @@ class ProductController extends Controller
                 }
             unset($params_array['id']);
             unset($params_array['created_at']);
+            unset ($params_array['updated_at']);
 
             $user = $this->getIdentity($request);
             if ($user->role == 'ROLE_ADMIN'){
                 $produc = Product::find($id);
 
                 if(!empty($produc) && is_object($produc)){
-                    $produc->update($params_array);
+                    //$produc->update($params_array);
+                    $produc = Product::where ('id',$id)->update($params_array);
                     $data = array (
                         'code'      => 200,
                         'status'    => 'success',
-                        'Post'      => $produc,
+                        'produc'      => $produc,
                         'changes'   => $params_array
                         );}
             }else{
