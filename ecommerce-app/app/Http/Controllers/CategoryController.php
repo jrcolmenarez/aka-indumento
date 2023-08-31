@@ -7,13 +7,15 @@ use App\Models\Category;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use app\Helpers\JwtAuth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
 
    public function __construct() {
 
-        $this->middleware('api.auth', ['except' => ['index','show']]);
+        $this->middleware('api.auth', ['except' => ['index','show','getImage']]);
 
     }
     public function index()
@@ -54,6 +56,7 @@ class CategoryController extends Controller
                     $category = new Category;
                     $category->name = $params_array['name'];
                     $category->description = $params_array['description'];
+                    $category->image = $params_array['image'];
                     $category->save();
                     $data = [
                         'code' => 200,
@@ -174,6 +177,52 @@ class CategoryController extends Controller
                'status'  => 'error',
                'mesage'    => 'categoria no existe'
              );}
+        return response()->json($data, $data['code']);
+    }
+
+    public function upload(Request $request){
+        //recoger datos de la peticion
+        $image = $request->file('file0');
+        //validar si llega una imagen
+        $validate = validator::make($request->all(),[
+            'file0' => 'required|image|mimes:jpeg,png,gif,jpg,bmp,cgm,gif,jpe,svg,psd,pic,webp|min:10|max:3000'
+        ]);
+        //gurdamos la imagen
+        if(!$image || $validate->fails()){
+
+            $data = array (
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Error al cargar imagen'
+             );
+            }else {
+           $image_name = time().$image->getClientOriginalName();
+            Storage::disk('products')->put($image_name, File::get($image));
+           // Storage::disk('user')->put($image_name,);
+            $data = array (
+            'code' => 200,
+            'status' => 'success',
+            'image' => $image_name
+         );}
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function getImage($filename) {
+        $isset = Storage::disk('products')->exists($filename);
+
+        if($isset){
+        //conseguir la imagen
+        $file = Storage::disk('products')->get($filename);
+        //devolver la imagen
+        return new response($file, 200);
+        }else {
+            $data = [
+                'code'  => 404,
+                'status'=> 'error',
+                'message'=> 'La imagen no existe'
+            ];
+        }
         return response()->json($data, $data['code']);
     }
 

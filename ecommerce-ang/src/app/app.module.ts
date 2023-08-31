@@ -18,6 +18,8 @@ import {FileUploadComponent} from './components/file-upload/file-upload.componen
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductsRegisterComponent } from './components/products-register/products-register.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
+import { CategoryRegisterComponent } from './components/category-register/category-register.component';
+import { CategoryEditComponent } from './components/category-edit/category-edit.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
     FileUploadComponent,
     ProductListComponent,
     ProductsRegisterComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    CategoryRegisterComponent,
+    CategoryEditComponent
   ],
   imports: [
     BrowserModule,

@@ -32,6 +32,8 @@ Route::get('/', function () {
 
     //category rutas
     route::resource('/api/category', CategoryController::class);
+    route::post('/api/category/upload', [CategoryController::class, 'upload']);
+    route::get('/api/category/image/{filename}', [CategoryController::class, 'getImage']);
     //subcategory
     route::resource('/api/subcategory', SubcategoryController::class);
 

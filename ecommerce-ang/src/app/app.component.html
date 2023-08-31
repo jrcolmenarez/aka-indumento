@@ -16,10 +16,8 @@
 <body>
   <div class="container-fluid">
     <div class="cabecera sticky-top">
-      <div class="row d-flex justify-content-end">
-        <div class="col-md-4 text-end me-5 pe-4 mt-4">
-          <a [routerLink]="['registroprod']" *ngIf="identity && identity.role=='ROLE_ADMIN'">PRODUCTOS</a>
-          <a [routerLink]="['/editproduct/19']" *ngIf="identity && identity.role=='ROLE_ADMIN'">CATEGORIAS</a>
+      <div class="row justify-content-end me-4 pe-4">
+        <div class="col-md-4 text-end mt-4">
           <a href="">TIENDAS</a>
           <a [routerLink]="['registro']" *ngIf="!identity">REGISTRATE</a>
           <a [routerLink]="['/login']" *ngIf="!identity"><i class="bi bi-person fs-5"></i></a>
@@ -56,7 +54,16 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" [routerLink]="['/userpedit',identity.sub]">Mi Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Sin Uso</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['registroprod']" *ngIf="identity && identity.role=='ROLE_ADMIN'">Producto <i class="fa-solid fa-plus" style="font-size: 15px;"></i> </a></li>
+                    <li *ngIf="identity && identity.role=='ROLE_ADMIN'">
+
+                        <a class="dropdown-item" >Categorias</a>
+                        <ul class="">
+                          <li><a class="dropdown-item" [routerLink]="['registrocateogria']">Crear Categori</a></li>
+                          <li><a class="dropdown-item" [routerLink]="['editcategoria']">Editar Categoria</a></li>
+                        </ul>
+
+                    </li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
@@ -86,23 +93,28 @@
               id="navbarSupportedContent">
               <div class="clear-fix">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                      aria-expanded="false">Damas
+                  <li class="nav-item" *ngFor="let category of categories">
+                    <a class="dropdown-toggle" type="button" id="{{'dropdownMenuButton1'+category.id}}" data-bs-toggle="dropdown"
+                      aria-expanded="false">{{category.name}}
                     </a>
-                    <ul class="dropdown-menu p-0 m-0 w-100" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu p-0 m-0 w-100" [attr.aria-labelledby]="'dropdownMenuButton1'+category.id">
                       <div class="exampleModal">
                         <div class="contenido">
-                          <div class="row justify-content-center align-items-center">
-                            <div class="col-md-4 col-sm-4 col-4 submenu text-center">
-                              <ul class="text-justify">
-                                <li>Ropa</li>
-                                <li>Calzado</li>
-                                <li>Sueters</li>
+                          <div class="row d-flex justify-content-center align-items-center position-relative">
+
+                            <div class="col-md-2 col-sm-2 col-2 position-absolute top-50 start-0">
+                              <img src="assets/planetario.jpeg" class="img-contenido" alt="">
+                            </div>
+
+
+                            <div class="col-md-3 col-sm-3 col-3">
+                              <ul class="text-justify" *ngFor="let subcat of category.subcategory">
+                                <li>{{subcat.name}}</li>
                               </ul>
                             </div>
-                            <div class="col-md-4 col-sm-4 col-4 text-center">
-                              <img src="assets/modelomen.png" alt="">
+                            <div class="col-md-3 col-sm-3 col-3 mt-4">
+                              <img src="assets/modelomen.png" class="img-contenido mt-4" alt="" *ngIf="!category.image">
+                              <img src="{{url+'category/image/'+category.image}}" class="img-contenido mt-4" alt="" *ngIf="category.image">
                             </div>
                           </div>
 
@@ -110,6 +122,7 @@
                       </div>
                     </ul>
                   </li>
+                  <!--Comienza el resto del menu
                   <li class="nav-item">
                     <a class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
                       aria-expanded="false">Caballeros
@@ -157,10 +170,8 @@
                         </div>
                       </div>
                     </ul>
-                  </li>
-                  <li class="nav-item">
+                  </li>Termina resto del menu-->
 
-                  </li>
                 </ul>
               </div>
             </div>

@@ -18,6 +18,7 @@ export class UserEditComponent implements OnInit {
   public status: string;
   public url: string;
   public token: string;
+  public identity:any;
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
@@ -34,6 +35,7 @@ export class UserEditComponent implements OnInit {
     this.status='error';
     this.url=global.url;
     this.token = this._userService.getToken();
+    this.identity = this._userService.getIdentity();
   }
 
   ngOnInit(): void {
@@ -64,6 +66,8 @@ export class UserEditComponent implements OnInit {
     this._userService.updateUser(this.token, this.user).subscribe(
       response=>{
         this._router.navigate(['inicio']);
+        this.identity = this.user; //traemos el usuario actualizado
+        localStorage.setItem('identity', JSON.stringify(this.identity));//actualizar local storage
       },error=>{
         console.log(error);
       });

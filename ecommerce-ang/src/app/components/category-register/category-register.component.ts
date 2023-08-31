@@ -1,25 +1,26 @@
-import { Product } from './../../models/product';
-import { Component, OnInit, ModuleWithProviders } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { UserService } from '../../services/user.services';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { global } from 'src/app/services/global';
-import {ProductService} from '../../services/products.services';
-
+import { global } from '../../services/global';
+import { UserService } from '../../services/user.services';
+import { CategoryServices } from '../../services/category.services';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Category } from 'src/app/models/category';
 
 @Component({
-  selector: 'app-products-register',
-  templateUrl: './products-register.component.html',
-  styleUrls: ['./products-register.component.css'],
-  providers: [UserService, ProductService]
+  selector: 'app-category-register',
+  templateUrl: './category-register.component.html',
+  styleUrls: ['./category-register.component.css'],
+  providers: [UserService,CategoryServices ]
 })
-export class ProductsRegisterComponent implements OnInit {
+export class CategoryRegisterComponent implements OnInit{
 
-  public identity: any;
-  public product: Product;
-  public is_edit: boolean;
-  public url: string;
+  public identity : any;
+  public categories: any;
+  public category: Category;
   public token: string;
+  public url: string;
+  public is_edit: boolean;
+  public is_subcategory: boolean;
   public numberimag: string;
   selectedFiles?: FileList;
   currentFile?: File;
@@ -31,19 +32,27 @@ export class ProductsRegisterComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _router: Router,
-    private _productService: ProductService
+    private _categoryService: CategoryServices,
   ){
     this.identity = this._userService.getIdentity();
-    this.product=new Product(1,'','',1,1,'','','','',this.identity.sub);
-    this.is_edit=false;
     this.token = this._userService.getToken();
+    this.numberimag ='';
+    this.category = new Category(1,'','','');
     this.url = global.url;
-    this.numberimag = '';
+    this.is_edit = false;
+    this.is_subcategory = false;
   }
+
   ngOnInit(): void {
+
     if (this.identity.role != 'ROLE_ADMIN' || this.identity.role == 'null'){
       this._router.navigate(['error']);
     }
+
+  }
+
+  selectcategory(event: any){
+
   }
 
   selectFile(event: any): void {
@@ -63,28 +72,21 @@ export class ProductsRegisterComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this._productService.upload(this.currentFile, this.token).subscribe({
+        this._categoryService.upload(this.currentFile, this.token).subscribe({
           next: (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               if (this.numberimag == 'image1'){
                 this.progress1 = Math.round((100 * event.loaded) / event.total);
-              }else if (this.numberimag == 'image2'){
-                this.progress2 = Math.round((100 * event.loaded) / event.total);
-              }else if (this.numberimag == 'image3'){
-                this.progress3 = Math.round((100 * event.loaded) / event.total);
               }
               //this.progress1 = Math.round((100 * event.loaded) / event.total);
             } else if (event instanceof HttpResponse) {
               this.message = event.body.message;
               if (this.numberimag == 'image1'){
-                this.product.image1=event.body.image;
-              }else if (this.numberimag == 'image2'){
-                this.product.image2=event.body.image;
-              }else if (this.numberimag == 'image3'){
-                this.product.image3=event.body.image;
+                this.category.image=event.body.image;
+
               }
               console.log(this.numberimag);
-              console.log(event.body.image);
+              console.log(this.category.image);
             }
           },
           error: (err: any) => {
@@ -107,14 +109,11 @@ export class ProductsRegisterComponent implements OnInit {
   }
 
   onSubmit(form: any){
-    this._productService.registerProduct(this.product, this.token).subscribe(
-      response => {
-        console.log(response.Product);
-         this._router.navigate(['inicio']);
-      }, error => {
-        console.log(<any>error);
-      }
-      );
+    this._categoryService.registerCAt(this.category, this.token).subscribe({
+      next: (resp: any)=>{
+        this._router.navigate(['inicio']);
+      }, error: (error: any)=> console.log(error)
+    });
   }
 
 }
