@@ -27,7 +27,7 @@
       <div class="dropdown row ">
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
+          <div class="container-fluid" style="background-color: white;">
             <div class="nav_logo col-md-2 col-2 order-lg-0">
               <a href=""><img src="assets/logo.png" alt=""></a>
             </div>
@@ -54,7 +54,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" [routerLink]="['/userpedit',identity.sub]">Mi Perfil</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['registroprod']" *ngIf="identity && identity.role=='ROLE_ADMIN'">Producto <i class="fa-solid fa-plus" style="font-size: 15px;"></i> </a></li>
+                    <li><a class="dropdown-item" [routerLink]="['editproduct/20']" *ngIf="identity && identity.role=='ROLE_ADMIN'">Producto <i class="fa-solid fa-plus" style="font-size: 15px;"></i> </a></li>
                     <li *ngIf="identity && identity.role=='ROLE_ADMIN'">
 
                         <a class="dropdown-item" >Categorias</a>

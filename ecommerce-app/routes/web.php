@@ -36,6 +36,7 @@ Route::get('/', function () {
     route::get('/api/category/image/{filename}', [CategoryController::class, 'getImage']);
     //subcategory
     route::resource('/api/subcategory', SubcategoryController::class);
+    route::get('/api/subcategorbycat/{id}', [SubcategoryController::class, 'getByCategory']);
 
     //Product Rutas
     route::resource('/api/product', ProductController::class);

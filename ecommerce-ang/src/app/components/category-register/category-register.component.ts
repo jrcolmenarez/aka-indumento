@@ -17,6 +17,7 @@ export class CategoryRegisterComponent implements OnInit{
   public identity : any;
   public categories: any;
   public category: Category;
+  public subcategories: any;
   public token: string;
   public url: string;
   public is_edit: boolean;
@@ -37,7 +38,7 @@ export class CategoryRegisterComponent implements OnInit{
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.numberimag ='';
-    this.category = new Category(1,'','','');
+    this.category = new Category(0,'','','');
     this.url = global.url;
     this.is_edit = false;
     this.is_subcategory = false;

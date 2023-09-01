@@ -10,8 +10,10 @@
             <label for="category" class="form-label"><strong>SELECCIONE CATEGORIA</strong></label>
             <select class="form-select" aria-label="Default select example" name="categories"
             id="select" (change)="selectcategory($event)">
-              <option value="{{category.id}}" *ngFor="let category of categories">{{category.name}}</option>
-          </select>
+              <option value="{{cat.id}}" *ngFor="let cat of categories">{{cat.name}}</option>
+
+            </select>
+
 
 
 
@@ -66,48 +68,8 @@
         </div>
 
       </div>
-      <div class="row justify-content-center bg-success" *ngIf="is_subcategory">
-        <div class="col-md-8">
-          <table class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th scope="col">NOMBRE</th>
-                <th scope="col">DESCRIPCION</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let subcat of categories.subcategory ">
-                <td>{{subcat.name}}</td>
-                <td>{{subcat.description}}</td>
-               <!-- <td><a [routerLink]="['/editarusuario',user.id]"><i class="fa-sharp fa-solid fa-user-pen me-3" ></i></a>
-                    <a data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal'+user.id"><i class="fa-solid fa-trash me-3"></i></a>
-                          MODAL
-                          <div class="modal" tabindex="-1" id="{{'exampleModal'+user.id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title"><FONT COLOR="black">¿Seguro que desea eliminar?</FONT></h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <p><FONT COLOR="black">Se eliminaran datos de {{user.name+' '+user.surname}}</FONT></p>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                  <a (click)="deleteUser(user.id)" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                    <a [routerLink]="['/detalleusuario',user.id]"><i class="fa-solid fa-address-card"></i></a>
-                </td>-->
+      <div class="row justify-content-center" *ngIf="is_subcategory">
 
-              </tr>
-            </tbody>
-
-                        <!-- FIN MODAL-->
-          </table>
-        </div>
       </div>
     </div>
     <div class="row  justify-content-center">

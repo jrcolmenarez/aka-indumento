@@ -1,23 +1,27 @@
+import { Subcategory } from './../../models/subcategory';
 import { Category } from './../../models/category';
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { global } from '../../services/global';
 import { UserService } from '../../services/user.services';
 import { CategoryServices } from '../../services/category.services';
+import { SubcategoryService} from '../../services/subcategory.services';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-category-edit',
   templateUrl: '../category-register/category-register.component.html',
   styleUrls: ['./category-edit.component.css'],
-  providers: [UserService,CategoryServices ]
+  providers: [UserService,CategoryServices, SubcategoryService ]
 })
 export class CategoryEditComponent implements OnInit {
 
   public identity : any;
   public categories: any;
   public category: Category;
+  public subcategories: Array<Subcategory>;
   public token: string;
   public url: string;
   public is_edit: boolean;
@@ -34,11 +38,13 @@ export class CategoryEditComponent implements OnInit {
     private _userService: UserService,
     private _router: Router,
     private _categoryService: CategoryServices,
+    private _subcategories: SubcategoryService,
   ){
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.numberimag ='';
     this.category = new Category(1,'','','');
+    this.subcategories = new Array<Subcategory>;
     this.url = global.url;
     this.is_edit = true;
     this.is_subcategory = false;
@@ -58,7 +64,6 @@ export class CategoryEditComponent implements OnInit {
     this._categoryService.getAllCategories().subscribe({
       next: (resp: any)=>{
         this.categories=resp.categories;
-        this.is_subcategory= true;
       }
     });
   }
@@ -66,8 +71,13 @@ export class CategoryEditComponent implements OnInit {
   selectcategory(event: any){
     this._categoryService.getCategorybyId(event.target.value).subscribe({
       next: (resp: any)=>{
-        console.log(resp.category);
         this.category = resp.category;
+        this._subcategories.getbycategory(event.target.value).subscribe(
+          response => {
+            console.log(response.subcategory);
+            this.subcategories=response.Subcategory;
+            this.is_subcategory = true;
+          });
       }
     })
   }

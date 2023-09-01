@@ -14,7 +14,7 @@ class SubcategoryController extends Controller
 
     public function __construct() {
 
-        $this->middleware('api.auth', ['except' => ['index','show']]);
+        $this->middleware('api.auth', ['except' => ['index','show','getByCategory']]);
 
     }
 
@@ -77,7 +77,16 @@ class SubcategoryController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'success',
-            'product' => $subcategory
+            'subcategory' => $subcategory
+        ]);
+    }
+
+    public function getByCategory($id){
+        $subcategory = Subcategory::all()->where('category_id', $id);
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'subcategory' => $subcategory
         ]);
     }
 
